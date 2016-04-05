@@ -25,6 +25,7 @@ namespace Messanger.Core.Models
         public string Login { get; set; }
         public string Password { get; set; }
         public string NickName { get; set; }
+        public Nullable<bool> IsActive { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Message> Messages { get; set; }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MessangerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MessangerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Message">
           <Key>
             <PropertyRef Name="MassageId" />
@@ -23,8 +23,9 @@
           <Property Name="Login" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="varchar(max)" Nullable="false" />
           <Property Name="NickName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsActive" Type="bit" />
         </EntityType>
-        <Association Name="FK_Message_User_Recipient">
+        <Association Name="FK_Message_User_Recip">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Message" Type="Self.Message" Multiplicity="*" />
           <ReferentialConstraint>
@@ -36,8 +37,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Message_User_Sender">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
+        <Association Name="FK_Message_User_Send">
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Message" Type="Self.Message" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
@@ -51,20 +54,31 @@
         <EntityContainer Name="MessangerModelStoreContainer">
           <EntitySet Name="Message" EntityType="Self.Message" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Message_User_Recipient" Association="Self.FK_Message_User_Recipient">
+          <AssociationSet Name="FK_Message_User_Recip" Association="Self.FK_Message_User_Recip">
             <End Role="User" EntitySet="User" />
             <End Role="Message" EntitySet="Message" />
           </AssociationSet>
-          <AssociationSet Name="FK_Message_User_Sender" Association="Self.FK_Message_User_Sender">
+          <AssociationSet Name="FK_Message_User_Send" Association="Self.FK_Message_User_Send">
             <End Role="User" EntitySet="User" />
             <End Role="Message" EntitySet="Message" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MessangerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MessangerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Messages" EntityType="MessangerModel.Message" />
+          <EntitySet Name="Users" EntityType="MessangerModel.User" />
+          <AssociationSet Name="FK_Message_User_Recip" Association="MessangerModel.FK_Message_User_Recip">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Message" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Message_User_Send" Association="MessangerModel.FK_Message_User_Send">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Message" EntitySet="Messages" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Message">
           <Key>
             <PropertyRef Name="MassageId" />
@@ -72,25 +86,26 @@
           <Property Name="MassageId" Type="Int32" Nullable="false" />
           <Property Name="UserIdSender" Type="Int32" Nullable="false" />
           <Property Name="UserIdRecipient" Type="Int32" />
-          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="SendDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Message_User_Recipient" FromRole="Message" ToRole="User" />
-          <NavigationProperty Name="User1" Relationship="Self.FK_Message_User_Sender" FromRole="Message" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="MessangerModel.FK_Message_User_Recip" FromRole="Message" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="MessangerModel.FK_Message_User_Send" FromRole="Message" ToRole="User" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
           <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="NickName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Messages" Relationship="Self.FK_Message_User_Recipient" FromRole="User" ToRole="Message" />
-          <NavigationProperty Name="Messages1" Relationship="Self.FK_Message_User_Sender" FromRole="User" ToRole="Message" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NickName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Messages" Relationship="MessangerModel.FK_Message_User_Recip" FromRole="User" ToRole="Message" />
+          <NavigationProperty Name="Messages1" Relationship="MessangerModel.FK_Message_User_Send" FromRole="User" ToRole="Message" />
+          <Property Name="IsActive" Type="Boolean" />
         </EntityType>
-        <Association Name="FK_Message_User_Recipient">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Message" Type="Self.Message" Multiplicity="*" />
+        <Association Name="FK_Message_User_Recip">
+          <End Type="MessangerModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="MessangerModel.Message" Role="Message" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -100,9 +115,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Message_User_Sender">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Message" Type="Self.Message" Multiplicity="*" />
+        <Association Name="FK_Message_User_Send">
+          <End Type="MessangerModel.User" Role="User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MessangerModel.Message" Role="Message" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -112,18 +129,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="MessangerEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Messages" EntityType="Self.Message" />
-          <EntitySet Name="Users" EntityType="Self.User" />
-          <AssociationSet Name="FK_Message_User_Recipient" Association="Self.FK_Message_User_Recipient">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Message" EntitySet="Messages" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Message_User_Sender" Association="Self.FK_Message_User_Sender">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Message" EntitySet="Messages" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -133,21 +138,22 @@
           <EntitySetMapping Name="Messages">
             <EntityTypeMapping TypeName="MessangerModel.Message">
               <MappingFragment StoreEntitySet="Message">
-                <ScalarProperty Name="MassageId" ColumnName="MassageId" />
-                <ScalarProperty Name="UserIdSender" ColumnName="UserIdSender" />
-                <ScalarProperty Name="UserIdRecipient" ColumnName="UserIdRecipient" />
-                <ScalarProperty Name="Text" ColumnName="Text" />
                 <ScalarProperty Name="SendDate" ColumnName="SendDate" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="UserIdRecipient" ColumnName="UserIdRecipient" />
+                <ScalarProperty Name="UserIdSender" ColumnName="UserIdSender" />
+                <ScalarProperty Name="MassageId" ColumnName="MassageId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="MessangerModel.User">
               <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Login" ColumnName="Login" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
