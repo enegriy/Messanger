@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -8,22 +9,28 @@ namespace Messenger.Controllers
 {
 	public class HomeController : Controller
 	{
+		/// <summary>
+		/// Главная страница
+		/// </summary>
 		public ActionResult Index()
 		{
 			return View();
 		}
 
-		public ActionResult About()
+		/// <summary>
+		/// Авторизация
+		/// </summary>
+		[HttpPost]
+		public ActionResult LogIn(string login, string password)
 		{
-			ViewBag.Message = "Your application description page.";
-
-			return View();
+			return RedirectToAction("Index", "Home");
 		}
 
-		public ActionResult Contact()
+		/// <summary>
+		/// Регистрация
+		/// </summary>
+		public ActionResult Registration()
 		{
-			ViewBag.Message = "Your contact page.";
-
 			return View();
 		}
 	}
