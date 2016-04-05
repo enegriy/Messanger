@@ -10,7 +10,7 @@ namespace Messanger.Core
 	/// <summary>
 	/// Шифрование по алоритму MD5
 	/// </summary>
-	class CryptoMd5 : ICryptography
+	public class CryptoMd5 : ICryptography
 	{
 		/// <summary>
 		/// Зашифровать текст

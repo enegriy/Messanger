@@ -51,6 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cryptography\CryptoMd5.cs" />
+    <Compile Include="Cryptography\ICryptography.cs" />
     <Compile Include="Models\Message.cs">
       <DependentUpon>MessangerModel.tt</DependentUpon>
     </Compile>
@@ -74,9 +76,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="User\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <EntityDeploy Include="Models\MessangerModel.edmx">
