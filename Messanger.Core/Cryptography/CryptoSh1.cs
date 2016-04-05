@@ -1,26 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
 
 namespace Messanger.Core
 {
 	/// <summary>
-	/// Шифрование по алоритму MD5
+	/// Шифрование по алоритму Sh1
 	/// </summary>
-	public class CryptoMd5 : ICryptography
+	public class CryptoSh1 : ICryptography
 	{
 		/// <summary>
 		/// Зашифровать текст
 		/// </summary>
 		public string CryptoText(string text)
 		{
-			//Шифрование по алгоритму md5
-			MD5 md5 = MD5.Create();
-			var hashBytes = md5.ComputeHash(Encoding.UTF8.GetBytes(text));
+			SHA1 sha = new SHA1CryptoServiceProvider();
+			var hashBytes = sha.ComputeHash(Encoding.UTF8.GetBytes(text));
 			return hashBytes.ToStringExt();
+			
 		}
 	}
 }

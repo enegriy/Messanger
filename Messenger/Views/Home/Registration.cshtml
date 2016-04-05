@@ -1,4 +1,6 @@
-﻿
+﻿@using Messanger.Core.Models
+@model User
+
 @{
 	Layout = "~/Views/Shared/_Layout.cshtml";
 	// Url для регистрации пользователя
@@ -8,15 +10,15 @@
 <form method="POST" action="@registrationUrl" id="form">
 	<div class="form-group">
 		<label>Ник</label>
-		<input type="text" class="form-control" name="nick" placeholder="Введите Ник">
+		<input type="text" class="form-control" name="NickName" placeholder="Введите Ник">
 	</div>
 	<div class="form-group">
 		<label>Логин</label>
-		<input type="text" class="form-control" name="login" placeholder="Введите Логин">
+		<input type="text" class="form-control" name="Login" placeholder="Введите Логин">
 	</div>
 	<div class="form-group">
 		<label>Пароль</label>
-		<input type="password" class="form-control" name="password" placeholder="Пароль">
+		<input type="password" class="form-control" name="Password" placeholder="Пароль">
 	</div>
 	<button type="submit" class="btn btn-primary">Зарегистрироваться</button>
 </form>

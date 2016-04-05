@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Messenger;
 using Messenger.Controllers;
 
-namespace Messenger.Tests.Controllers
+namespace Messenger.Tests
 {
 	[TestClass]
 	public class HomeControllerTest
@@ -25,7 +25,7 @@ namespace Messenger.Tests.Controllers
 			Assert.IsNotNull(result);
 		}
 
-		[TestMethod]
+		/*[TestMethod]
 		public void About()
 		{
 			// Arrange
@@ -49,6 +49,6 @@ namespace Messenger.Tests.Controllers
 
 			// Assert
 			Assert.IsNotNull(result);
-		}
+		}*/
 	}
 }

@@ -12,6 +12,8 @@ namespace Messanger.Core.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class MessangerEntities : DbContext
     {
@@ -27,5 +29,10 @@ namespace Messanger.Core.Models
     
         public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<User> Users { get; set; }
+    
+        public virtual int sp_ClearDataBase()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ClearDataBase");
+        }
     }
 }

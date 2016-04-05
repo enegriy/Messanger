@@ -7,13 +7,17 @@ using System.Threading.Tasks;
 namespace Messanger.Core
 {
 	/// <summary>
-	/// Интерфейс шифрования
+	/// Алгоритм шифрования
 	/// </summary>
-	public interface ICryptography
+	public enum CryptoAlg
 	{
 		/// <summary>
-		/// Зашифровать текст
+		/// MD 5
 		/// </summary>
-		string CryptoText(string text);
+		md5,
+		/// <summary>
+		/// SH 1
+		/// </summary>
+		sh1
 	}
 }

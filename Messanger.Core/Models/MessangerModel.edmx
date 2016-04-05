@@ -51,6 +51,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="sp_ClearDataBase" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="MessangerModelStoreContainer">
           <EntitySet Name="Message" EntityType="Self.Message" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
@@ -78,6 +79,7 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Message" EntitySet="Messages" />
           </AssociationSet>
+          <FunctionImport Name="sp_ClearDataBase" />
         </EntityContainer>
         <EntityType Name="Message">
           <Key>
@@ -99,9 +101,9 @@
           <Property Name="Login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="NickName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" />
           <NavigationProperty Name="Messages" Relationship="MessangerModel.FK_Message_User_Recip" FromRole="User" ToRole="Message" />
           <NavigationProperty Name="Messages1" Relationship="MessangerModel.FK_Message_User_Send" FromRole="User" ToRole="Message" />
-          <Property Name="IsActive" Type="Boolean" />
         </EntityType>
         <Association Name="FK_Message_User_Recip">
           <End Type="MessangerModel.User" Role="User" Multiplicity="0..1" />
@@ -129,7 +131,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -157,6 +159,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_ClearDataBase" FunctionName="MessangerModel.Store.sp_ClearDataBase" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
