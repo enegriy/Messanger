@@ -1,8 +1,23 @@
 ﻿
 @{
-    ViewBag.Title = "Registration";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	// Url для регистрации пользователя
+	var registrationUrl = Url.Action("Registration", "Home");
 }
 
-<h2>Registration</h2>
+<form method="POST" action="@registrationUrl" id="form">
+	<div class="form-group">
+		<label>Ник</label>
+		<input type="text" class="form-control" name="nick" placeholder="Введите Ник">
+	</div>
+	<div class="form-group">
+		<label>Логин</label>
+		<input type="text" class="form-control" name="login" placeholder="Введите Логин">
+	</div>
+	<div class="form-group">
+		<label>Пароль</label>
+		<input type="password" class="form-control" name="password" placeholder="Пароль">
+	</div>
+	<button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+</form>
 

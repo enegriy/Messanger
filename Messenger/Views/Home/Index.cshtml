@@ -10,13 +10,13 @@
 <form method="POST" action="@loginUrl">
 	<div class="form-group">
 		<label>Логин</label>
-		<input type="text" class="form-control" id="login" placeholder="Введите логин">
+		<input type="text" class="form-control" name="login" placeholder="Введите логин">
 	</div>
 	<div class="form-group">
 		<label>Пароль</label>
-		<input type="password" class="form-control" id="password" placeholder="Пароль">
+		<input type="password" class="form-control" name="password" placeholder="Пароль">
 	</div>
-	<button type="submit" class="btn btn-default">Войти</button>
-	<a href="@registrationUrl" class="btn btn-default">Регистрация</a>
+	<button type="submit" class="btn btn-primary">Войти</button>
+	<a href="@registrationUrl" class="btn btn-primary">Регистрация</a>
 </form>
 

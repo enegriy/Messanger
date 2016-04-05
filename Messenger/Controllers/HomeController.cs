@@ -29,9 +29,19 @@ namespace Messenger.Controllers
 		/// <summary>
 		/// Регистрация
 		/// </summary>
+		[HttpGet]
 		public ActionResult Registration()
 		{
 			return View();
+		}
+
+		/// <summary>
+		/// Регистрация
+		/// </summary>
+		[HttpPost]
+		public ActionResult Registration(string nick, string login, string password)
+		{
+			return RedirectToAction("Index", "Home");
 		}
 	}
 }
