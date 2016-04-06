@@ -47,6 +47,20 @@ namespace Messenger.Controllers
 		}
 
 		/// <summary>
+		/// Выйти из системы
+		/// </summary>
+		[HttpGet]
+		public ActionResult LogOut()
+		{
+			var userId = GetSessionUser();
+
+			Messanger.Core.Authorization.SignOut(userId.Value);
+			ResetSession();
+
+			return RedirectToAction("Index", "Message");
+		}
+
+		/// <summary>
 		/// Регистрация
 		/// </summary>
 		[HttpGet]

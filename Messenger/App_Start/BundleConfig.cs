@@ -15,7 +15,9 @@ namespace Messenger
 						"~/Scripts/jquery.validate*"));
 
 			bundles.Add(new ScriptBundle("~/bundles/selectize").Include(
-						"~/Scripts/selectize.js"));
+						"~/Scripts/sifter.js",
+						"~/Scripts/microplugin.js",
+						"~/Scripts/Selectize/js/selectize.js"));
 
 
 			// Use the development version of Modernizr to develop with and learn from. Then, when you're
@@ -31,8 +33,8 @@ namespace Messenger
 					  "~/Content/bootstrap.css",
 					  "~/Content/site.css"));
 
-			bundles.Add(new StyleBundle("~/bundles/selectizecss").Include(
-					  "~/Content/selectize.bootstrap3.css"));
+			bundles.Add(new StyleBundle("~/bundles/selectizestyle").Include(
+					  "~/Scripts/Selectize/css/selectize.bootstrap2.css"));
 
 			
 		}

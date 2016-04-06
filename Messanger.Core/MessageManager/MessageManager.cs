@@ -21,7 +21,7 @@ namespace Messanger.Core
 			Message[] messages = null;
 			using (var dbContext = new MessangerEntities())
 			{
-				messages = dbContext.Messages
+				messages = dbContext.Messages.Include("User1")
 					.Where(x => x.UserIdRecipient == userId || x.UserIdRecipient == null)
 					.OrderByDescending(x=>x.SendDate)
 					.ToArray();
@@ -38,7 +38,7 @@ namespace Messanger.Core
 			var message = new Message();
 			message.UserIdSender = senderId;
 			if (recipientId.HasValue)
-				message.UserIdSender = recipientId.Value;
+				message.UserIdRecipient = recipientId.Value;
 			message.Text = text;
 			message.SendDate = DateTime.Now;
 

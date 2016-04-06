@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[Message] (
-    [MassageId]       INT           NOT NULL,
+    [MassageId]       INT           IDENTITY (1, 1) NOT NULL,
     [UserIdSender]    INT           NOT NULL,
     [UserIdRecipient] INT           NULL,
     [Text]            VARCHAR (MAX) NOT NULL,

@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="MassageId" />
           </Key>
-          <Property Name="MassageId" Type="int" Nullable="false" />
+          <Property Name="MassageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserIdSender" Type="int" Nullable="false" />
           <Property Name="UserIdRecipient" Type="int" />
           <Property Name="Text" Type="varchar(max)" Nullable="false" />

@@ -25,6 +25,23 @@ namespace Messenger.Controllers
 			return View(messages);
 		}
 
+		/// <summary>
+		/// Сохранить сощбщение
+		/// </summary>
+		[HttpPost]
+		public ActionResult SaveMessage(string message, int recipientId)
+		{
+			var userId = GetSessionUser();
+			var messageManager = new MessageManager();
+
+			if(recipientId == -1)
+				messageManager.SendMessageAllUsers(userId.Value, message);
+			else
+				messageManager.SendMessage(userId.Value, recipientId, message);
+
+			return RedirectToAction("Index", "Message");
+		}
+
 		[HttpGet]
 		public JsonNetResult GetActiveUser()
 		{

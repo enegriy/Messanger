@@ -30,5 +30,13 @@ namespace Messenger.Controllers
 		{
 			Session["UserId"] = userId;
 		}
+
+		/// <summary>
+		/// Сброс сессии
+		/// </summary>
+		public void ResetSession()
+		{
+			Session["UserId"] = null;
+		}
 	}
 }
