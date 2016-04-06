@@ -9,13 +9,20 @@ using Messanger.Core.Models;
 
 namespace Messenger.Controllers
 {
-	public class HomeController : Controller
+	public class HomeController : BaseController
 	{
 		/// <summary>
 		/// Главная страница
 		/// </summary>
 		public ActionResult Index()
 		{
+			// Проверяю есть ли авторизованный пользователь
+			// если есть переходим к сообщениям
+			var userId = GetSessionUser();
+			if (userId.HasValue)
+			{
+				return RedirectToAction("Index", "Message");
+			}
 			return View();
 		}
 
@@ -25,15 +32,18 @@ namespace Messenger.Controllers
 		[HttpPost]
 		public ActionResult LogIn(string login, string password)
 		{
+			// Ищу пользвателя в базе
 			var userId = Messanger.Core.Authorization.SignIn(login, password);
 
+			// Если отсутствует перехожу на главную
 			if(!userId.HasValue)
 			{
 				return RedirectToAction("Index", "Home");
 			}
 
-			Session["userId"] = userId;
-			return RedirectToAction("Index", "Home");
+			// Если пользователь найден переходим на страницу отправки сообщений
+			SetSessionUser(userId);
+			return RedirectToAction("Index", "Message");
 		}
 
 		/// <summary>
@@ -42,6 +52,7 @@ namespace Messenger.Controllers
 		[HttpGet]
 		public ActionResult Registration()
 		{
+			// Создаю модель пользователя
 			var userManager = new UserManager();
 			var newUser = userManager.CreateNew();
 			return View(newUser);
@@ -57,9 +68,11 @@ namespace Messenger.Controllers
 			var crypto = Cryptography.GetCryptographyByDefault();
 			user.Password = crypto.CryptoText(user.Password);
 
+			// Сохраняю пользователя
 			var userManager = new UserManager();
 			userManager.SaveUser(user);
 
+			// Перехожу на главную страницу
 			return RedirectToAction("Index", "Home");
 		}
 	}

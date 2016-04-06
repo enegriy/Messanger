@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Messenger.Tests.Authorization
+namespace Messenger.Tests
 {
 	/// <summary>
 	/// Тестирование авторизации

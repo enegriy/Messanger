@@ -9,16 +9,16 @@
 
 <form method="POST" action="@registrationUrl" id="form">
 	<div class="form-group">
-		<label>Ник</label>
-		<input type="text" class="form-control" name="NickName" placeholder="Введите Ник">
+		@Html.LabelFor(x => x.NickName, "Ник")
+		@Html.TextBoxFor(x=>x.NickName, new { @class = "form-control", required = "required", placeholder = "Введите Ник" })
 	</div>
 	<div class="form-group">
-		<label>Логин</label>
-		<input type="text" class="form-control" name="Login" placeholder="Введите Логин">
+		@Html.LabelFor(x => x.Login, "Логин")
+		@Html.TextBoxFor(x => x.Login, new { @class = "form-control", required = "required", placeholder = "Введите Логин" })
 	</div>
 	<div class="form-group">
-		<label>Пароль</label>
-		<input type="password" class="form-control" name="Password" placeholder="Пароль">
+		@Html.LabelFor(x => x.Password, "Пароль")
+		@Html.PasswordFor(x => x.Password, new { @class = "form-control", required = "required", placeholder = "Пароль" })
 	</div>
 	<button type="submit" class="btn btn-primary">Зарегистрироваться</button>
 </form>
