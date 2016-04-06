@@ -64,10 +64,10 @@ namespace Messenger.Tests
 			var cryptoByDefault = Messanger.Core.Cryptography.GetCryptographyByDefault();
 			Assert.IsTrue(cryptoByDefault is CryptoMd5);
 
-			var cryptoSh1 = Messanger.Core.Cryptography.GetCryptography(CryptoAlg.sh1);
+			var cryptoSh1 = Messanger.Core.Cryptography.GetCryptography(CryptoAlg.Sh1);
 			Assert.IsTrue(cryptoSh1 is CryptoSh1);
 
-			var cryptoMd5 = Messanger.Core.Cryptography.GetCryptography(CryptoAlg.md5);
+			var cryptoMd5 = Messanger.Core.Cryptography.GetCryptography(CryptoAlg.Md5);
 			Assert.IsTrue(cryptoMd5 is CryptoMd5);
 		}
 	}

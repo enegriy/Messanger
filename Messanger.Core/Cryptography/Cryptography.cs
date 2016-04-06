@@ -24,13 +24,15 @@ namespace Messanger.Core
 		/// </summary>
 		public static ICryptography GetCryptography(CryptoAlg cryptoAlg)
 		{
-			if (cryptoAlg == CryptoAlg.md5)
-				return new CryptoMd5();
-
-			if (cryptoAlg == CryptoAlg.sh1)
-				return new CryptoSh1();
-
-			return GetCryptographyByDefault();
+			switch (cryptoAlg)
+			{
+				case CryptoAlg.Md5:
+					return new CryptoMd5();
+				case CryptoAlg.Sh1:
+					return new CryptoSh1();
+				default:
+					return GetCryptographyByDefault();
+			}
 		}
 	}
 }

@@ -17,7 +17,7 @@ namespace Messanger.Core
 		/// </summary>
 		public string CryptoText(string text)
 		{
-			SHA1 sha = new SHA1CryptoServiceProvider();
+			var sha = new SHA1CryptoServiceProvider();
 			var hashBytes = sha.ComputeHash(Encoding.UTF8.GetBytes(text));
 			return hashBytes.ToStringExt();
 			

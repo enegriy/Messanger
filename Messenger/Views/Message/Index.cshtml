@@ -1,8 +1,56 @@
-﻿
+﻿@model Messanger.Core.Models.Message[]
+
+@Scripts.Render("~/bundles/selectize")
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+	var activeUsersUrl = Url.Action("GetActiveUser", "Message");
 }
 
-<h2>Index</h2>
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">Входящие</h3>
+	</div>
+	<div class="panel-body">
+		@foreach (var message in Model)
+		{
+			<div class="row">
+				<div class="col-md-4">
+					@message.User1.NickName
+				</div>
+				<div class="col-md-4">
+					@message.SendDate.ToString("dd-MM-yyyy")
+				</div>
+				<div class="col-md-4">
+					@message.Text
+				</div>
+			</div>
+		}
+	</div>
+</div>
 
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">Отправить сообщение</h3>
+	</div>
+	<div class="panel-body">
+		<form id="form" action="" method="POST">
+			<div class="form-group">
+				<label class="control-label">Текст сообщения</label>
+				<input type="text" name="message" required class="form-control">
+			</div>
+			<div class="form-group">
+				<label class="control-label">Выбрать пользователя</label>
+				<select id="active_users" required class="form-control"><option label="sdfsf"></select>
+			</div>
+			<button type="submit" class="btn btn-primary">
+				Отправить
+			</button>
+		</form>
+	</div>
+</div>
+
+<script>
+	$('#active_users').selectize();
+</script>

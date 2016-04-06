@@ -18,7 +18,7 @@ namespace Messanger.Core
 		public string CryptoText(string text)
 		{
 			//Шифрование по алгоритму md5
-			MD5 md5 = MD5.Create();
+			var md5 = MD5.Create();
 			var hashBytes = md5.ComputeHash(Encoding.UTF8.GetBytes(text));
 			return hashBytes.ToStringExt();
 		}

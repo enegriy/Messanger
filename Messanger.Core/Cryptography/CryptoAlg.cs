@@ -14,10 +14,10 @@ namespace Messanger.Core
 		/// <summary>
 		/// MD 5
 		/// </summary>
-		md5,
+		Md5,
 		/// <summary>
 		/// SH 1
 		/// </summary>
-		sh1
+		Sh1
 	}
 }

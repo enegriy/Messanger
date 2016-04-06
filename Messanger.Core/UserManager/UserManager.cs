@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
 using System.Linq;
+using System.Management.Instrumentation;
 using System.Text;
 using System.Threading.Tasks;
 using Messanger.Core.Models;
@@ -77,6 +79,21 @@ namespace Messanger.Core
 		}
 
 		/// <summary>
+		/// Получить активных пользователей
+		/// </summary>
+		public User[] GetActiveUsers()
+		{
+			User[] users = null;
+			using (var dbContext = new MessangerEntities())
+			{
+				users = dbContext.Users
+					.Where(x => x.IsActive.HasValue && x.IsActive.Value)
+					.ToArray();
+			}
+			return users;
+		}
+
+		/// <summary>
 		/// Установить значение для поля Active
 		/// </summary>
 		private void SetActive(int userId, bool isActive)
@@ -84,6 +101,8 @@ namespace Messanger.Core
 			using (var dbContext = new MessangerEntities())
 			{
 				var user = dbContext.Users.FirstOrDefault(usr => usr.UserId == userId);
+				if(user == null)
+					throw new ObjectNotFoundException("Не найден пользователь!");
 				user.IsActive = isActive;
 				dbContext.SaveChanges();
 			}

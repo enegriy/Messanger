@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Messanger.Core;
+using Was.JsonNetResult;
 
 namespace Messenger.Controllers
 {
@@ -17,7 +19,39 @@ namespace Messenger.Controllers
 			var userId = GetSessionUser();
 			if (!userId.HasValue) return RedirectToAction("Index", "Home");
 
-			return View();
+			var messageManager = new MessageManager();
+			var messages = messageManager.GetIncomingMessages(userId.Value);
+
+			return View(messages);
+		}
+
+		[HttpGet]
+		public JsonNetResult GetActiveUser()
+		{
+			// Шаблон ответа JSON
+			var json = new JsonNetResult
+			{
+				JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+				Data = Enumerable.Empty<string>()
+			};
+
+			var userId = GetSessionUser();
+
+			UserManager userManager = new UserManager();
+			var users = userManager.GetActiveUsers();
+
+			IDictionary<int?, string> dictUser = new Dictionary<int?, string>();
+			dictUser[-1] = "Всем пользователям";
+			foreach (var user in users)
+			{
+				if (user.UserId == userId)
+					continue;
+
+				dictUser[user.UserId] = user.NickName;
+			}
+
+			json.Data = dictUser;
+			return json;
 		}
 	}
 }
