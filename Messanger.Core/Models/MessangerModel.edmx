@@ -69,6 +69,7 @@
     <edmx:ConceptualModels>
       <Schema Namespace="MessangerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="MessangerEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="sp_ClearDataBase" />
           <EntitySet Name="Messages" EntityType="MessangerModel.Message" />
           <EntitySet Name="Users" EntityType="MessangerModel.User" />
           <AssociationSet Name="FK_Message_User_Recip" Association="MessangerModel.FK_Message_User_Recip">
@@ -79,13 +80,12 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Message" EntitySet="Messages" />
           </AssociationSet>
-          <FunctionImport Name="sp_ClearDataBase" />
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="Message">
           <Key>
             <PropertyRef Name="MassageId" />
           </Key>
-          <Property Name="MassageId" Type="Int32" Nullable="false" />
+          <Property Name="MassageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserIdSender" Type="Int32" Nullable="false" />
           <Property Name="UserIdRecipient" Type="Int32" />
           <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -137,6 +137,7 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="MessangerModelStoreContainer" CdmEntityContainer="MessangerEntities">
+          <FunctionImportMapping FunctionImportName="sp_ClearDataBase" FunctionName="MessangerModel.Store.sp_ClearDataBase" />
           <EntitySetMapping Name="Messages">
             <EntityTypeMapping TypeName="MessangerModel.Message">
               <MappingFragment StoreEntitySet="Message">
@@ -159,8 +160,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="sp_ClearDataBase" FunctionName="MessangerModel.Store.sp_ClearDataBase" />
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

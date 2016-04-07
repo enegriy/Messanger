@@ -14,6 +14,10 @@ namespace Messenger.Tests
 		[TestMethod]
 		public void SignIn_Test()
 		{
+			// Очищаю тестовую базу
+			ClearBase();
+
+			// Создаю пользователя
 			var crypto = Messanger.Core.Cryptography.GetCryptographyByDefault();
 			var userManager = new Messanger.Core.UserManager();
 			var newUser = userManager.CreateNew();
@@ -22,10 +26,11 @@ namespace Messenger.Tests
 			newUser.NickName = "Ник";
 			userManager.SaveUser(newUser);
 
+			// Авторизую его
 			var userId = Messanger.Core.Authorization.SignIn("TestLogin", "Password");
-			Assert.IsTrue(userId == newUser.UserId);
 
-			ClearBase();
+			// Проверяю что авторизован был newUser
+			Assert.IsTrue(userId == newUser.UserId);
 		}
 
 		/// <summary>
@@ -34,6 +39,10 @@ namespace Messenger.Tests
 		[TestMethod]
 		public void SignOut_Test()
 		{
+			// Очищаю тестовую базу
+			ClearBase();
+
+			// Создаю пользователя
 			var crypto = Messanger.Core.Cryptography.GetCryptographyByDefault();
 			var userManager = new Messanger.Core.UserManager();
 			var newUser = userManager.CreateNew();
@@ -42,13 +51,14 @@ namespace Messenger.Tests
 			newUser.NickName = "Ник";
 			userManager.SaveUser(newUser);
 
+			// Авторизую его
 			var userId = Messanger.Core.Authorization.SignIn("TestLogin", "Password");
+			// Выход из системы
 			Messanger.Core.Authorization.SignOut(userId.Value);
 
+			// Проверяю что мой пользователь неактивный
 			var user = userManager.GetUserById(userId.Value);
 			Assert.IsTrue(!user.IsActive.Value);
-
-			ClearBase();
 		}
 	}
 }

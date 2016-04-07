@@ -58,6 +58,7 @@
     <Compile Include="Cryptography\CryptoSh1.cs" />
     <Compile Include="Cryptography\ICryptography.cs" />
     <Compile Include="Lib\ByteArrayExtension.cs" />
+    <Compile Include="Lib\ExceptionHelper.cs" />
     <Compile Include="MessageManager\MessageManager.cs" />
     <Compile Include="Models\Message.cs">
       <DependentUpon>MessangerModel.tt</DependentUpon>

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Messanger.Core.Models;
 
 namespace Messanger.Core
@@ -12,6 +9,11 @@ namespace Messanger.Core
 	/// </summary>
 	public class MessageManager
 	{
+		/// <summary>
+		/// Код для всех пользователей, для отправки сообщений
+		/// </summary>
+		public static int AllUserCode { get; } = -1;
+
 		/// <summary>
 		/// Получить все входящие сообщения
 		/// </summary>

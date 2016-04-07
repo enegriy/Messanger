@@ -7,3 +7,13 @@
     CONSTRAINT [PK_User] PRIMARY KEY CLUSTERED ([UserId] ASC)
 );
 
+
+GO
+CREATE UNIQUE NONCLUSTERED INDEX [IX_User_NickName]
+    ON [dbo].[User]([NickName] ASC);
+
+
+GO
+CREATE UNIQUE NONCLUSTERED INDEX [IX_User_Login]
+    ON [dbo].[User]([Login] ASC);
+

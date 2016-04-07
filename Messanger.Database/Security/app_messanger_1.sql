@@ -1,3 +1,3 @@
 ﻿CREATE LOGIN [app_messanger]
-    WITH PASSWORD = N'~wKvohvqkDzbrgteNmmCzblmmsFT7_&#$!~<ux||tsh=qb_y', SID = 0x0DE1DF015C3E774C912C9893BD814761, DEFAULT_LANGUAGE = [us_english], CHECK_POLICY = OFF;
+    WITH PASSWORD = N'jIuvo|:!ykosawzuXy{p2=womsFT7_&#$!~<dp{=eydyaouj', SID = 0xA4F2C4E1DD3CFB4F94CA8D08AD9E1D18, DEFAULT_LANGUAGE = [русский], CHECK_POLICY = OFF;
 

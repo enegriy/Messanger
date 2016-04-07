@@ -5,7 +5,17 @@
 	Layout = "~/Views/Shared/_Layout.cshtml";
 	// Url для регистрации пользователя
 	var registrationUrl = Url.Action("Registration", "Home");
+	// Ошибки произошедшие при регистрации
+	string error = ViewBag.Erorr;
 }
+
+@if (!string.IsNullOrEmpty(error))
+{
+	<div class="alert alert-danger">
+		@error
+	</div>
+}
+
 
 <form method="POST" action="@registrationUrl" id="form">
 	<div class="form-group">
@@ -22,4 +32,3 @@
 	</div>
 	<button type="submit" class="btn btn-primary btn-block">Зарегистрироваться</button>
 </form>
-

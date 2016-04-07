@@ -61,12 +61,15 @@ namespace Messenger.Tests
 		[TestMethod]
 		public void GetCryptography_Test()
 		{
+			// Проверяю тип криптоалгоритма по умолчанию
 			var cryptoByDefault = Messanger.Core.Cryptography.GetCryptographyByDefault();
 			Assert.IsTrue(cryptoByDefault is CryptoMd5);
 
+			// Проверяю тип криптоалгоритма Sh1
 			var cryptoSh1 = Messanger.Core.Cryptography.GetCryptography(CryptoAlg.Sh1);
 			Assert.IsTrue(cryptoSh1 is CryptoSh1);
 
+			// Проверяю тип криптоалгоритма md5
 			var cryptoMd5 = Messanger.Core.Cryptography.GetCryptography(CryptoAlg.Md5);
 			Assert.IsTrue(cryptoMd5 is CryptoMd5);
 		}

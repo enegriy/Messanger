@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Messanger.Core
 {
@@ -14,7 +11,7 @@ namespace Messanger.Core
 		/// <summary>
 		/// Массив байт собрать в строку
 		/// </summary>
-		public static string ToStringExt(this byte[] bytes)
+		public static string ToStringExt(this IEnumerable<byte> bytes)
 		{
 			var sb = new StringBuilder();
 			foreach (var b in bytes)

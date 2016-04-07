@@ -4,8 +4,18 @@
 
 	// URL для регистрации
 	var registrationUrl = Url.Action("Registration", "Home");
+
+	// Показать сообщение об ошибке
+	bool isShwoError = ViewBag.IsShowError ?? false;
 }
 
+
+@if(isShwoError)
+{
+	<div class="alert alert-danger">
+		Ошибка авторизации
+	</div>
+}
 
 <form method="POST" action="@loginUrl">
 	<div class="form-group">
